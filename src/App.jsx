@@ -2,14 +2,21 @@ import { useState } from 'react';
 import HamburgerMenu from './components/HamburgerMenu';
 import RandomCard from './views/RandomCard';
 import CardDetail from './views/CardDetail';
-import cards from './data/cards.json'; // ✅ Import card data
+import FullDeck from './views/FullDeck';
+import ThreeCardSpread from './views/ThreeCardSpread';
+import CelticCrossSpread from './views/CelticCrossSpread';
 
 function App() {
   const [view, setView] = useState('Random Card');
   const [selectedCard, setSelectedCard] = useState(null);
+  const [includeReversed, setIncludeReversed] = useState(true);
+  const [randomCardRefresh, setRandomCardRefresh] = useState(0);
 
   const handleSelect = (item) => {
     if (typeof item === 'string') {
+      if (item === 'Random Card') {
+        setRandomCardRefresh((prev) => prev + 1);
+      }
       setView(item);
       setSelectedCard(null);
     } else {
@@ -19,21 +26,35 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-950 via-gray-900 to-black text-gray-100 p-4 relative">
+    <div className="min-h-screen bg-gray-950 text-gray-100 p-4 relative">
       <HamburgerMenu onSelect={handleSelect} />
-      {view === 'Random Card' && <RandomCard cards={cards} />}
+
+      {/* Toggle for reversed cards */}
+      <div className="fixed bottom-4 right-4 flex items-center space-x-2 text-sm bg-gray-800 px-3 py-2 rounded shadow">
+        <label htmlFor="toggle-reversed" className="cursor-pointer select-none">
+          Include Reversed
+        </label>
+        <input
+          id="toggle-reversed"
+          type="checkbox"
+          checked={includeReversed}
+          onChange={() => setIncludeReversed((prev) => !prev)}
+        />
+      </div>
+
+      {/* Render active view */}
+      {view === 'Random Card' && (
+        <RandomCard
+          includeReversed={includeReversed}
+          refreshKey={randomCardRefresh}
+        />
+      )}
       {view === 'CardDetail' && selectedCard && (
         <CardDetail card={selectedCard} />
       )}
-      {view === 'Choose from Deck' && (
-        <div className="text-center mt-8">[Choose from Deck]</div>
-      )}
-      {view === 'Three Card Spread' && (
-        <div className="text-center mt-8">[Three Card Spread]</div>
-      )}
-      {view === 'Celtic Cross' && (
-        <div className="text-center mt-8">[Celtic Cross]</div>
-      )}
+      {view === 'Choose from Deck' && <FullDeck />}
+      {view === 'Three Card Spread' && <ThreeCardSpread />}
+      {view === 'Celtic Cross Spread' && <CelticCrossSpread />}
     </div>
   );
 }

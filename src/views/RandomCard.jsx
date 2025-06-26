@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import cards from '../data/cards.json';
 
-export default function RandomCard({ cards, includeUpsideDown }) {
+export default function RandomCard({ includeReversed, refreshKey }) {
   const [currentCard, setCurrentCard] = useState(null);
   const [isReversed, setIsReversed] = useState(false);
 
-  // Function to pick a random card with optional upside down
   const drawCard = () => {
     const randomIndex = Math.floor(Math.random() * cards.length);
     const card = cards[randomIndex];
-
-    // Determine if reversed if toggle is on, otherwise always upright
-    const reversed = includeUpsideDown ? Math.random() < 0.5 : false;
-
+    const reversed = includeReversed ? Math.random() < 0.5 : false;
     setCurrentCard(card);
     setIsReversed(reversed);
   };
 
-  // Draw a card initially on mount
   useEffect(() => {
     drawCard();
-  }, [includeUpsideDown]); // redraw if upside down toggle changes
+  }, [refreshKey, includeReversed]);
 
   if (!currentCard) return null;
 
