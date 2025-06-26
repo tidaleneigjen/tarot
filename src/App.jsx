@@ -1,57 +1,41 @@
-import React, { useState } from "react";
-import cards from "./data/cards.json";
+import { useState } from 'react';
+import HamburgerMenu from './components/HamburgerMenu';
+import RandomCard from './views/RandomCard';
+import CardDetail from './views/CardDetail';
+import cards from './data/cards.json'; // ✅ Import card data
 
-import HamburgerMenu from "./components/HamburgerMenu";
-import UpsideDownToggle from "./components/UpsideDownToggle";
-import RandomCard from "./components/RandomCard";
-import FullDeck from "./components/FullDeck";
-import ThreeCardSpread from "./components/ThreeCardSpread";
-import CelticCrossSpread from "./components/CelticCrossSpread";
+function App() {
+  const [view, setView] = useState('Random Card');
+  const [selectedCard, setSelectedCard] = useState(null);
 
-export default function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [view, setView] = useState("random"); // default view
-  const [includeUpsideDown, setIncludeUpsideDown] = useState(false);
-
-  const handleMenuSelect = (selectedView) => {
-    setView(selectedView);
-    setMenuOpen(false);
+  const handleSelect = (item) => {
+    if (typeof item === 'string') {
+      setView(item);
+      setSelectedCard(null);
+    } else {
+      setView('CardDetail');
+      setSelectedCard(item);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-300 font-sans relative">
-      {/* Hamburger menu top right */}
-      <div className="fixed top-4 right-4 z-50">
-        <HamburgerMenu
-          isOpen={menuOpen}
-          onToggle={() => setMenuOpen(!menuOpen)}
-          onSelect={handleMenuSelect}
-        />
-      </div>
-
-      {/* Main content area */}
-      <main className="max-w-5xl mx-auto pt-16 px-6 pb-20 min-h-screen">
-        {view === "random" && (
-          <RandomCard cards={cards} includeUpsideDown={includeUpsideDown} />
-        )}
-        {view === "fullDeck" && (
-          <FullDeck cards={cards} includeUpsideDown={includeUpsideDown} />
-        )}
-        {view === "threeCard" && (
-          <ThreeCardSpread cards={cards} includeUpsideDown={includeUpsideDown} />
-        )}
-        {view === "celticCross" && (
-          <CelticCrossSpread cards={cards} includeUpsideDown={includeUpsideDown} />
-        )}
-      </main>
-
-      {/* Upside-down toggle near bottom center */}
-      <footer className="fixed bottom-6 left-0 right-0 flex justify-center z-40">
-        <UpsideDownToggle
-          enabled={includeUpsideDown}
-          onToggle={() => setIncludeUpsideDown(!includeUpsideDown)}
-        />
-      </footer>
+    <div className="min-h-screen bg-gradient-to-b from-purple-950 via-gray-900 to-black text-gray-100 p-4 relative">
+      <HamburgerMenu onSelect={handleSelect} />
+      {view === 'Random Card' && <RandomCard cards={cards} />}
+      {view === 'CardDetail' && selectedCard && (
+        <CardDetail card={selectedCard} />
+      )}
+      {view === 'Choose from Deck' && (
+        <div className="text-center mt-8">[Choose from Deck]</div>
+      )}
+      {view === 'Three Card Spread' && (
+        <div className="text-center mt-8">[Three Card Spread]</div>
+      )}
+      {view === 'Celtic Cross' && (
+        <div className="text-center mt-8">[Celtic Cross]</div>
+      )}
     </div>
   );
 }
+
+export default App;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 export default function RandomCard({ cards, includeUpsideDown }) {
   const [currentCard, setCurrentCard] = useState(null);
@@ -31,7 +31,7 @@ export default function RandomCard({ cards, includeUpsideDown }) {
           src={currentCard.image}
           alt={currentCard.name}
           className={`max-h-[60vh] object-contain transition-transform duration-300 ${
-            isReversed ? "rotate-180" : ""
+            isReversed ? 'rotate-180' : ''
           }`}
           loading="lazy"
         />
@@ -39,11 +39,13 @@ export default function RandomCard({ cards, includeUpsideDown }) {
 
       {/* Description */}
       <div className="md:w-1/2 md:pl-8 mt-6 md:mt-0">
-        <h2 className="text-3xl font-semibold mb-3 text-purple-300">{currentCard.name}</h2>
+        <h2 className="text-3xl font-semibold mb-3 text-purple-300">
+          {currentCard.name}
+        </h2>
         <p className="mb-4 italic text-gray-300">{currentCard.desc}</p>
         <div>
           <h3 className="font-semibold text-lg mb-1">
-            Meaning {isReversed ? "(Reversed)" : "(Upright)"}
+            Meaning {isReversed ? '(Reversed)' : '(Upright)'}
           </h3>
           <p>{isReversed ? currentCard.meaning_rev : currentCard.meaning_up}</p>
         </div>

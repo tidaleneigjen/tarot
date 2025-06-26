@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function UpsideDownToggle({ enabled, onToggle }) {
   return (
@@ -13,4 +13,3 @@ export default function UpsideDownToggle({ enabled, onToggle }) {
     </label>
   );
 }
-
