@@ -1,41 +1,42 @@
+// src/components/TarotCard.jsx
 import React from 'react';
 
-// export default function TarotCard({ card }) {
-//   if (!card) return null;
+export default function TarotCard({ card, isReversed = false, onRedraw }) {
+  if (!card) return null;
 
-//   return (
-//     <div className="card">
-//       <h2>{card.name}</h2>
-//       <img src={card.image} alt={card.name} style={{ width: '200px' }} />
-//       <p>{card.meaning_up}</p>
-//     </div>
-//   );
-// }
-
-export default function TarotCard({ card }) {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
-      <div className="flex flex-row bg-white shadow-lg rounded-xl p-6 max-w-5xl w-full">
-        {/* Image Section */}
-        <div className="w-1/2 flex justify-center items-center">
-          <img
-            src={card.image}
-            alt={card.name}
-            className="max-h-[80vh] object-contain"
-          />
+    <div className="flex flex-col md:flex-row items-center bg-purple-900 bg-opacity-60 rounded-lg p-6 max-w-4xl mx-auto my-10 text-gray-100 shadow-lg">
+      {/* Card Image */}
+      <div className="flex-shrink-0 md:w-1/2 flex justify-center">
+        <img
+          src={card.image}
+          alt={card.name}
+          className={`max-h-[60vh] object-contain transition-transform duration-300 ${
+            isReversed ? 'rotate-180' : ''
+          }`}
+          loading="lazy"
+        />
+      </div>
+
+      {/* Description */}
+      <div className="md:w-1/2 md:pl-8 mt-6 md:mt-0 overflow-y-auto max-h-[70vh] pr-2">
+        <h2 className="text-3xl font-semibold mb-3 text-purple-300">{card.name}</h2>
+        <p className="mb-4 italic text-gray-300">{card.desc}</p>
+        <div>
+          <h3 className="font-semibold text-lg mb-1">
+            Meaning {isReversed ? '(Reversed)' : '(Upright)'}
+          </h3>
+          <p>{isReversed ? card.meaning_rev : card.meaning_up}</p>
         </div>
 
-        {/* Description Section */}
-        <div className="w-1/2 px-6 flex flex-col justify-center">
-          <h2 className="text-3xl font-bold mb-4">{card.name}</h2>
-          <p className="text-gray-700 mb-4 italic">{card.desc}</p>
-          <div className="mt-4">
-            <p className="font-semibold">Upright Meaning:</p>
-            <p className="text-sm text-gray-600 mb-2">{card.meaning_up}</p>
-            <p className="font-semibold">Reversed Meaning:</p>
-            <p className="text-sm text-gray-600">{card.meaning_rev}</p>
-          </div>
-        </div>
+        {onRedraw && (
+          <button
+            onClick={onRedraw}
+            className="mt-6 bg-purple-700 hover:bg-purple-600 text-white font-semibold py-2 px-5 rounded shadow transition"
+          >
+            Draw Another Card
+          </button>
+        )}
       </div>
     </div>
   );

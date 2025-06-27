@@ -26,7 +26,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 p-4 relative">
+    <div className="min-h-screen text-gray-100 p-4 relative bg-gradient-to-br from-[#1a1a2e] via-[#2d1b3c] to-[#1e1b2f]">
       <HamburgerMenu onSelect={handleSelect} />
 
       {/* Toggle for reversed cards */}
