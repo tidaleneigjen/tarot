@@ -30,16 +30,21 @@ function App() {
       <HamburgerMenu onSelect={handleSelect} />
 
       {/* Toggle for reversed cards */}
-      <div className="fixed bottom-4 right-4 flex items-center space-x-2 text-sm bg-gray-800 px-3 py-2 rounded shadow">
-        <label htmlFor="toggle-reversed" className="cursor-pointer select-none">
-          Include Reversed
+      <div className="fixed bottom-4 right-4 flex items-center space-x-3 text-sm bg-gray-800 bg-opacity-80 px-4 py-2 rounded-full shadow">
+        <label htmlFor="toggle-reversed" className="text-gray-300">
+          Reversed
         </label>
-        <input
-          id="toggle-reversed"
-          type="checkbox"
-          checked={includeReversed}
-          onChange={() => setIncludeReversed((prev) => !prev)}
-        />
+        <label className="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            id="toggle-reversed"
+            checked={includeReversed}
+            onChange={() => setIncludeReversed((prev) => !prev)}
+            className="sr-only peer"
+          />
+          <div className="w-10 h-5 bg-gray-600 rounded-full peer-checked:bg-purple-600 transition-colors duration-300"></div>
+          <div className="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full transition-transform duration-300 transform peer-checked:translate-x-5"></div>
+        </label>
       </div>
 
       {/* Render active view */}

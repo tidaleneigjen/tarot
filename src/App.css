@@ -43,12 +43,13 @@
 
 body {
   @apply min-h-screen text-gray-100 p-4;
-  background: linear-gradient(135deg, 
-    #1a1a2e 0%,      /* deep indigo */
-    #3a0ca3 25%,     /* rich purple */
-    #7209b7 50%,     /* violet */
-    #560bad 75%,     /* darker purple */
-    #1a1a2e 100%     /* back to dark */
+  background: linear-gradient(
+    135deg,
+    #1a1a2e 0%,
+    /* deep indigo */ #3a0ca3 25%,
+    /* rich purple */ #7209b7 50%,
+    /* violet */ #560bad 75%,
+    /* darker purple */ #1a1a2e 100% /* back to dark */
   );
   background-repeat: no-repeat;
   background-attachment: fixed;

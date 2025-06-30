@@ -20,7 +20,9 @@ export default function TarotCard({ card, isReversed = false, onRedraw }) {
 
       {/* Description */}
       <div className="md:w-1/2 md:pl-8 mt-6 md:mt-0 overflow-y-auto max-h-[70vh] pr-2">
-        <h2 className="text-3xl font-semibold mb-3 text-purple-300">{card.name}</h2>
+        <h2 className="text-3xl font-semibold mb-3 text-purple-300">
+          {card.name}
+        </h2>
         <p className="mb-4 italic text-gray-300">{card.desc}</p>
         <div>
           <h3 className="font-semibold text-lg mb-1">
