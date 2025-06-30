@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import cards from './data/cards.json';
+import { VIEW } from './constants/views';
 import HamburgerMenu from './components/HamburgerMenu';
 import RandomCard from './views/RandomCard';
 import CardDetail from './views/CardDetail';
@@ -10,20 +11,20 @@ import ReversedToggle from './components/ReversedToggle';
 import './App.css';
 
 function App() {
-  const [view, setView] = useState('Random Card');
+  const [view, setView] = useState(VIEW.Random);
   const [selectedCard, setSelectedCard] = useState(null);
   const [includeReversed, setIncludeReversed] = useState(true);
   const [randomCardRefresh, setRandomCardRefresh] = useState(0);
 
   const handleSelect = (item) => {
     if (typeof item === 'string') {
-      if (item === 'Random Card') {
+      if (item === VIEW.Random) {
         setRandomCardRefresh((prev) => prev + 1);
       }
       setView(item);
       setSelectedCard(null);
     } else {
-      setView('CardDetail');
+      setView(VIEW.Detail);
       setSelectedCard(item);
     }
   };
@@ -32,19 +33,19 @@ function App() {
     <div className="app-wrapper">
       <div className="flex-container">
         <div className="content-wrapper canvas">
-          {view === 'Random Card' && (
+          {view === VIEW.Random && (
             <RandomCard
               includeReversed={includeReversed}
               refreshKey={randomCardRefresh}
               cards={cards}
             />
           )}
-          {view === 'CardDetail' && selectedCard && (
+          {view === VIEW.Detail && selectedCard && (
             <CardDetail card={selectedCard} />
           )}
-          {view === 'Choose from Deck' && <FullDeck />}
-          {view === 'Three Card Spread' && <ThreeCardSpread />}
-          {view === 'Celtic Cross Spread' && <CelticCrossSpread />}
+          {view === VIEW.FullDeck && <FullDeck />}
+          {view === VIEW.ThreeCardSpread && <ThreeCardSpread />}
+          {view === VIEW.CelticCrossSpread && <CelticCrossSpread />}
         </div>
 
         <div className="menu-wrapper">

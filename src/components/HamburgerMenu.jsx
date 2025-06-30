@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { VIEW } from '../constants/views';
 
 export default function HamburgerMenu({ onSelect, cards }) {
   const isMobile = useMediaQuery({ maxWidth: 767 });
@@ -74,12 +75,7 @@ export default function HamburgerMenu({ onSelect, cards }) {
             Views
           </h3>
           <ul className="space-y-1">
-            {[
-              'Random Card',
-              'Choose from Deck',
-              'Three Card Spread',
-              'Celtic Cross',
-            ].map((label) => (
+            {[VIEW.Random, VIEW.Deck, VIEW.Three, VIEW.Celtic].map((label) => (
               <li key={label}>
                 <button
                   className="menu-button"
