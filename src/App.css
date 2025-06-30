@@ -1,57 +1,144 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-body {
-  @apply min-h-screen text-gray-100 p-4;
+.bg-cosmic {
   background: linear-gradient(
     135deg,
-    #1a1a2e 0%,
-    /* deep indigo */ #3a0ca3 25%,
-    /* rich purple */ #7209b7 50%,
-    /* violet */ #560bad 75%,
-    /* darker purple */ #1a1a2e 100% /* back to dark */
+    #0f2027,
+    #203a43,
+    #2c5364,
+    #1c1c2a,
+    #0a0a12
   );
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   background-size: cover;
+  background-attachment: fixed;
+}
+
+.app-wrapper {
+  @apply min-h-screen w-full bg-cosmic font-sans text-gray-100 p-4;
+}
+
+/* Container flex to stack on mobile, row on desktop */
+.flex-container {
+  @apply flex flex-col md:flex-row md:items-start md:justify-center max-w-full mx-auto;
+}
+
+/* Canvas styles: translucent dark background, rounded, padding, shadow */
+.canvas {
+  @apply bg-slate-900 bg-opacity-60 rounded-lg p-6 shadow-lg mt-4 md:mt-0 md:flex-1;
+  min-width: 0; /* fixes flexbox shrinking issues */
+}
+
+/* Menu container */
+.menu-container {
+  @apply md:w-64 w-full md:ml-6 bg-slate-800 bg-opacity-90 rounded-lg shadow-lg p-4 max-h-[90vh] overflow-y-auto;
+}
+
+/* On desktop, menu is on right; on mobile it is above */
+.menu-wrapper {
+  @apply w-full md:w-auto md:order-2 order-1;
+}
+
+/* Content wrapper for main canvas */
+.content-wrapper {
+  @apply w-full md:flex-1 md:order-1 order-2;
+}
+
+/* Tarot card container: stacked on mobile, side by side on desktop */
+.tarot-card-container {
+  @apply flex flex-col md:flex-row max-w-4xl mx-auto;
+}
+
+/* Image container */
+.card-image-wrapper {
+  @apply flex-shrink-0 md:w-1/2 flex justify-center;
+}
+
+.card-image-wrapper img {
+  @apply object-contain max-w-full max-h-[60vh];
+}
+
+/* Meanings container with vertical centering on desktop */
+.meanings-container {
+  @apply md:w-1/2 md:pl-8 flex flex-col justify-center mt-6 md:mt-0;
+}
+
+/* Description below image and meanings */
+.card-description {
+  @apply mt-6 italic text-gray-300 max-w-3xl mx-auto;
+}
+
+/* Card name heading */
+.card-name {
+  @apply text-4xl font-semibold mb-6 text-purple-300 text-center md:text-left;
+}
+
+/* Include reversed toggle fixed bottom right */
+.include-reversed-toggle {
+  @apply fixed bottom-4 right-4 flex items-center space-x-2 text-sm bg-slate-800 bg-opacity-90 px-3 py-2 rounded shadow text-gray-100;
+}
+
+/* Menu toggle button on mobile */
+.menu-toggle-button {
+  @apply mb-2 px-3 py-2 bg-purple-700 rounded text-white w-full text-left focus:outline-none focus:ring-2 focus:ring-purple-500;
+}
+
+/* Menu buttons */
+.menu-button {
+  @apply w-full text-left text-purple-300 hover:text-purple-400 hover:underline px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500;
+}
+
+.menu-button-expanded {
+  @apply font-semibold;
+}
+
+.menu-item {
+  @apply text-sm text-purple-400 hover:text-purple-300 hover:underline px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500;
+}
+
+/* Slider toggle switch styles */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #444;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #a78bfa; /* purple-400 */
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
 }
