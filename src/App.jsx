@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import cards from './data/cards.json';
-import { VIEW } from './constants/views';
 import HamburgerMenu from './components/HamburgerMenu';
 import RandomCard from './views/RandomCard';
 import CardDetail from './views/CardDetail';
@@ -8,6 +7,7 @@ import FullDeck from './views/FullDeck';
 import ThreeCardSpread from './views/ThreeCardSpread';
 import CelticCrossSpread from './views/CelticCrossSpread';
 import ReversedToggle from './components/ReversedToggle';
+import { VIEW } from './constants/views'; // Make sure this matches your actual path
 import './App.css';
 
 function App() {
@@ -43,9 +43,9 @@ function App() {
           {view === VIEW.Detail && selectedCard && (
             <CardDetail card={selectedCard} />
           )}
-          {view === VIEW.FullDeck && <FullDeck />}
-          {view === VIEW.ThreeCardSpread && <ThreeCardSpread />}
-          {view === VIEW.CelticCrossSpread && <CelticCrossSpread />}
+          {view === VIEW.Deck && <FullDeck />}
+          {view === VIEW.Three && <ThreeCardSpread />}
+          {view === VIEW.Celtic && <CelticCrossSpread />}
         </div>
 
         <div className="menu-wrapper">
