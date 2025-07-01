@@ -6,38 +6,33 @@
   @apply min-h-screen w-full bg-cosmic font-sans text-gray-100 p-4;
 }
 
-/* Container flex to stack on mobile, row on desktop */
 .flex-container {
   @apply flex flex-col md:flex-row md:items-start md:justify-center max-w-full mx-auto;
 }
 
-/* Canvas styles: translucent dark background, rounded, padding, shadow */
 .canvas {
   @apply bg-slate-900 bg-opacity-60 rounded-lg p-6 shadow-lg mt-4 md:mt-0 md:flex-1;
-  min-width: 0; /* fixes flexbox shrinking issues */
+  min-width: 0;
 }
 
-/* Menu container */
 .menu-container {
   @apply md:w-64 w-full md:ml-6 bg-slate-800 bg-opacity-90 rounded-lg shadow-lg p-4 max-h-[90vh] overflow-y-auto;
 }
 
-/* On desktop, menu is on right; on mobile it is above */
 .menu-wrapper {
   @apply w-full md:w-auto md:order-2 order-1;
 }
 
 /* Content wrapper for main canvas */
 .content-wrapper {
-  @apply w-full md:flex-1 md:order-1 order-2;
+  @apply w-full md:flex-1 md:order-1 order-2 flex items-center justify-center;
+  min-height: calc(100vh - 4rem); /* Adjust for top padding/margin */
 }
 
-/* Tarot card container: stacked on mobile, side by side on desktop */
 .tarot-card-container {
   @apply flex flex-col md:flex-row max-w-4xl mx-auto;
 }
 
-/* Image container */
 .card-image-wrapper {
   @apply flex-shrink-0 md:w-1/2 flex justify-center;
 }
@@ -46,33 +41,27 @@
   @apply object-contain max-w-full max-h-[60vh];
 }
 
-/* Meanings container with vertical centering on desktop */
 .meanings-container {
   @apply md:w-1/2 md:pl-8 flex flex-col justify-center mt-6 md:mt-0;
 }
 
-/* Description below image and meanings */
 .card-description {
   @apply mt-6 italic text-gray-300 max-w-3xl mx-auto;
 }
 
-/* Card name heading */
 .card-name {
   @apply text-4xl font-semibold mb-6 text-purple-300 text-center md:text-left;
 }
 
-/* Include reversed toggle fixed bottom right */
 .include-reversed-toggle {
   @apply flex flex-col items-center space-y-1 text-sm bg-slate-800 bg-opacity-90 px-4 py-3 rounded-lg shadow text-gray-100;
-  width: 100%; /* Ensure it fills the parent */
+  width: 100%;
 }
 
-/* Menu toggle button on mobile */
 .menu-toggle-button {
   @apply mb-2 px-3 py-2 bg-purple-700 rounded text-white w-full text-left focus:outline-none focus:ring-2 focus:ring-purple-500;
 }
 
-/* Menu buttons */
 .menu-button {
   @apply w-full text-left text-purple-300 hover:text-purple-400 hover:underline px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500;
 }
@@ -85,12 +74,11 @@
   @apply text-sm text-purple-400 hover:text-purple-300 hover:underline px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-purple-500;
 }
 
-/* Slider toggle switch styles */
 .toggle-switch {
   position: relative;
   display: inline-block;
-  width: 80px; /* increase width */
-  height: 40px; /* increase height */
+  width: 80px;
+  height: 40px;
 }
 
 .toggle-switch input {
@@ -114,9 +102,9 @@
 .slider:before {
   position: absolute;
   content: '';
-  height: 32px; /* bigger */
-  width: 32px; /* bigger */
-  left: 4px; /* adjust for padding */
+  height: 32px;
+  width: 32px;
+  left: 4px;
   bottom: 4px;
   background-color: white;
   transition: 0.4s;
@@ -124,9 +112,49 @@
 }
 
 input:checked + .slider {
-  background-color: #a78bfa; /* purple-400 */
+  background-color: #a78bfa;
 }
 
 input:checked + .slider:before {
-  transform: translateX(40px); /* matches width - knob width - padding */
+  transform: translateX(40px);
+}
+
+/* ─── Three Card Spread ─────────────────────────── */
+
+.three-card-grid {
+  @apply flex flex-col items-center gap-6 md:flex-row md:justify-center;
+}
+
+.card-wrapper {
+  @apply flex flex-col items-center transition-transform duration-300 transform hover:scale-105;
+  width: 100%;
+  max-width: 240px;
+}
+
+.card-image-box {
+  @apply w-full max-w-xs flex justify-center;
+}
+
+.card-image-box img {
+  @apply w-full h-auto max-h-[400px] md:max-h-[500px] object-contain;
+}
+
+.card-image-wrapper img {
+  @apply w-full object-contain;
+  aspect-ratio: 3 / 5; /* Matches typical tarot card proportions */
+  max-width: 240px;
+}
+
+.card-hover-text {
+  @apply text-center text-sm text-gray-300 mt-3 px-2;
+  min-height: 6rem; /* Reserve vertical space */
+  max-height: 6rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.card-wrapper:hover .card-hover-text {
+  opacity: 1;
 }

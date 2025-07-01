@@ -44,7 +44,9 @@ function App() {
             <CardDetail card={selectedCard} />
           )}
           {view === VIEW.Deck && <FullDeck />}
-          {view === VIEW.Three && <ThreeCardSpread />}
+          {view === VIEW.Three && (
+            <ThreeCardSpread cards={cards} includeReversed={includeReversed} />
+          )}
           {view === VIEW.Celtic && <CelticCrossSpread />}
         </div>
 
