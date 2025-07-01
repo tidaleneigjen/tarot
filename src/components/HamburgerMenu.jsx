@@ -1,10 +1,8 @@
-import { useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
+import { useState, useMemo } from 'react';
 import { VIEW } from '../constants/views';
 
 export default function HamburgerMenu({ onSelect, cards }) {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
-  const [menuOpen, setMenuOpen] = useState(!isMobile); // open on desktop by default
+  const [menuOpen, setMenuOpen] = useState(false);
   const [expandedSections, setExpandedSections] = useState({});
 
   const toggleMenu = () => setMenuOpen((open) => !open);
@@ -14,21 +12,24 @@ export default function HamburgerMenu({ onSelect, cards }) {
       [label]: !prev[label],
     }));
 
-  const groupBySuit = (suit) => cards.filter((card) => card.suit === suit);
-  const majorArcana = cards.filter((card) => card.type === 'major');
+  const sections = useMemo(() => {
+    const groupBySuit = (suit) => cards.filter((card) => card.suit === suit);
+    const majorArcana = cards.filter((card) => card.type === 'major');
 
-  const sections = [
-    { label: 'Major Arcana', cards: majorArcana },
-    { label: 'Cups', cards: groupBySuit('cups') },
-    { label: 'Wands', cards: groupBySuit('wands') },
-    { label: 'Pentacles', cards: groupBySuit('pentacles') },
-    { label: 'Swords', cards: groupBySuit('swords') },
-  ];
+    return [
+      { label: 'Major Arcana', cards: majorArcana },
+      { label: 'Cups', cards: groupBySuit('cups') },
+      { label: 'Wands', cards: groupBySuit('wands') },
+      { label: 'Pentacles', cards: groupBySuit('pentacles') },
+      { label: 'Swords', cards: groupBySuit('swords') },
+    ];
+  }, [cards]);
 
   return (
     <nav className="menu-container w-full md:w-64" aria-label="Main navigation">
       {/* Mobile Toggle Button */}
-      {isMobile && (
+      {/* Mobile Toggle Button */}
+      <div className="block md:hidden">
         <button
           onClick={toggleMenu}
           className="w-full flex items-center justify-between px-4 py-3 bg-gray-800 text-white rounded shadow mb-2 focus:outline-none"
@@ -56,15 +57,18 @@ export default function HamburgerMenu({ onSelect, cards }) {
             />
           </div>
         </button>
-      )}
+      </div>
 
       {/* Menu Content */}
       <div
         id="menu-content"
         className={`
-          transition-[max-height] duration-300 overflow-hidden text-gray-100 p-2 md:p-4
-          ${menuOpen || !isMobile ? 'max-h-[1000px]' : 'max-h-0'}
-        `}
+    overflow-hidden text-gray-100
+    transition-[max-height] duration-300 ease-in-out
+    ${menuOpen ? 'p-2' : 'p-0'}
+    ${menuOpen ? 'max-h-[1000px]' : 'max-h-0'}
+    md:max-h-none md:p-4 md:block
+  `}
       >
         {/* Views */}
         <section className="mb-6" aria-labelledby="views-heading">
