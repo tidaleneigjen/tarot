@@ -17,7 +17,7 @@ export default function TarotCardGrid({ cards, isReversedList }) {
               />
             </div>
             {/* <TarotCard card={card} isReversed={isReversed} showText={false} showTitle={false} /> */}
-            <div className="card-hover-text">
+            <div className="card-hover-text" data-testid="card-tooltip">
               <strong>{card.name}</strong>
               <p>
                 <em>{isReversed ? 'Reversed' : 'Upright'}:</em> {meaning}
