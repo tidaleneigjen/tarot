@@ -7,7 +7,7 @@ import FullDeck from './views/FullDeck';
 import ThreeCardSpread from './views/ThreeCardSpread';
 import CelticCrossSpread from './views/CelticCrossSpread';
 import ReversedToggle from './components/ReversedToggle';
-import { VIEW } from './constants/views'; // Make sure this matches your actual path
+import { VIEW } from './constants/views';
 import './App.css';
 
 function App() {
@@ -53,11 +53,19 @@ function App() {
         </div>
       </div>
 
-      <ReversedToggle
-        checked={includeReversed}
-        onChange={() => setIncludeReversed((prev) => !prev)}
-        className="include-reversed-toggle"
-      />
+      {/* Reversed Toggle - responsive placement */}
+      <div
+        className="
+    mt-6 w-full flex justify-center
+    md:mt-0 md:fixed md:bottom-4 md:right-4 md:w-64 md:justify-end
+  "
+      >
+        <ReversedToggle
+          checked={includeReversed}
+          onChange={() => setIncludeReversed((prev) => !prev)}
+          className="w-full"
+        />
+      </div>
     </div>
   );
 }

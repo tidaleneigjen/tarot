@@ -63,7 +63,8 @@
 
 /* Include reversed toggle fixed bottom right */
 .include-reversed-toggle {
-  @apply fixed bottom-4 right-4 flex items-center space-x-2 text-sm bg-slate-800 bg-opacity-90 px-3 py-2 rounded shadow text-gray-100;
+  @apply flex flex-col items-center space-y-1 text-sm bg-slate-800 bg-opacity-90 px-4 py-3 rounded-lg shadow text-gray-100;
+  width: 100%; /* Ensure it fills the parent */
 }
 
 /* Menu toggle button on mobile */
@@ -88,8 +89,8 @@
 .toggle-switch {
   position: relative;
   display: inline-block;
-  width: 40px;
-  height: 20px;
+  width: 80px; /* increase width */
+  height: 40px; /* increase height */
 }
 
 .toggle-switch input {
@@ -113,10 +114,10 @@
 .slider:before {
   position: absolute;
   content: '';
-  height: 14px;
-  width: 14px;
-  left: 3px;
-  bottom: 3px;
+  height: 32px; /* bigger */
+  width: 32px; /* bigger */
+  left: 4px; /* adjust for padding */
+  bottom: 4px;
   background-color: white;
   transition: 0.4s;
   border-radius: 50%;
@@ -127,5 +128,5 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-  transform: translateX(20px);
+  transform: translateX(40px); /* matches width - knob width - padding */
 }

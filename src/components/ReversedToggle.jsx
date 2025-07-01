@@ -1,9 +1,7 @@
 export default function ReversedToggle({ checked, onChange, className }) {
   return (
-    <label
-      className={`include-reversed-toggle cursor-pointer select-none ${className || ''}`}
-    >
-      <span>Include Reversed</span>
+    <label className={`include-reversed-toggle ${className || ''}`}>
+      <span>Include reversed</span>
       <span className="toggle-switch">
         <input
           type="checkbox"
