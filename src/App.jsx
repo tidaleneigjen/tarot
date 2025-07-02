@@ -14,15 +14,6 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [includeReversed, setIncludeReversed] = useState(true);
   const [randomCardRefresh, setRandomCardRefresh] = useState(0);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const handleSelect = (item) => {
     if (typeof item === 'string') {
@@ -38,35 +29,30 @@ function App() {
   };
 
   return (
-    <div className="app-wrapper">
-      <div className="mobile-content-wrapper">
-        {isMobile && (
-          <div className="menu-container">
-            <HamburgerMenu onSelect={handleSelect} cards={cards} />
-          </div>
-        )}
+    <div className="app-wrapper flex flex-col md:flex-row md:flex-nowrap min-h-screen p-4 gap-4">
+      {/* Menu container */}
+      <div className="menu-container w-full md:w-64 md:flex-shrink-0">
+        <HamburgerMenu onSelect={handleSelect} cards={cards} />
+      </div>
 
-        <div className="canvas-container">
-          <div className="canvas">
-            {view === VIEW.Random && (
-              <RandomCard
-                includeReversed={includeReversed}
-                refreshKey={randomCardRefresh}
-                cards={cards}
-              />
-            )}
-            {view === VIEW.Detail && selectedCard && (
-              <CardDetail card={selectedCard} />
-            )}
-            {view === VIEW.Deck && <FullDeck />}
-            {view === VIEW.Three && (
-              <ThreeCardSpread
-                cards={cards}
-                includeReversed={includeReversed}
-              />
-            )}
-            {view === VIEW.Celtic && <CelticCrossSpread />}
-          </div>
+      {/* Canvas container */}
+      <div className="canvas-container flex-1 min-h-[400px]">
+        <div className="canvas bg-slate-900 bg-opacity-60 rounded-lg shadow-lg w-full h-full flex items-center justify-center p-4">
+          {view === VIEW.Random && (
+            <RandomCard
+              includeReversed={includeReversed}
+              refreshKey={randomCardRefresh}
+              cards={cards}
+            />
+          )}
+          {view === VIEW.Detail && selectedCard && (
+            <CardDetail card={selectedCard} />
+          )}
+          {view === VIEW.Deck && <FullDeck />}
+          {view === VIEW.Three && (
+            <ThreeCardSpread cards={cards} includeReversed={includeReversed} />
+          )}
+          {view === VIEW.Celtic && <CelticCrossSpread />}
         </div>
       </div>
     </div>
