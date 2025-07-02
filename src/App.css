@@ -4,16 +4,20 @@
 
 .app-wrapper {
   @apply w-full bg-cosmic font-sans text-gray-100;
+  /* full height handled by min-h-screen in JSX */
 }
 
 .menu-container {
-  /* On mobile, full width; on desktop fixed width */
-  /* Already handled by Tailwind classes in JSX */
+  /* handled via Tailwind in JSX */
 }
 
 .canvas-container {
-  /* flex-1 handled in JSX for filling remaining space */
-  min-height: 400px; /* fallback */
+  /* On mobile, fill viewport height minus padding (approximate 4rem from p-4) */
+  min-height: calc(100vh - 4rem);
+
+  @media (min-width: 768px) {
+    min-height: 100%;
+  }
 }
 
 .canvas {

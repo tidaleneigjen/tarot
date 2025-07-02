@@ -14,6 +14,13 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [includeReversed, setIncludeReversed] = useState(true);
   const [randomCardRefresh, setRandomCardRefresh] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleSelect = (item) => {
     if (typeof item === 'string') {
@@ -29,14 +36,16 @@ function App() {
   };
 
   return (
-    <div className="app-wrapper flex flex-col md:flex-row md:flex-nowrap min-h-screen p-4 gap-4">
-      {/* Menu container */}
-      <div className="menu-container w-full md:w-64 md:flex-shrink-0">
-        <HamburgerMenu onSelect={handleSelect} cards={cards} />
-      </div>
+    <div className="app-wrapper min-h-screen bg-cosmic font-sans text-gray-100 p-4 flex flex-col md:flex-row gap-4">
+      {/* Mobile menu above canvas */}
+      {isMobile && (
+        <div className="menu-container w-full mb-4">
+          <HamburgerMenu onSelect={handleSelect} cards={cards} />
+        </div>
+      )}
 
-      {/* Canvas container */}
-      <div className="canvas-container flex-1 min-h-[400px]">
+      {/* Canvas fills remaining space */}
+      <div className="canvas-container flex-1 min-h-[calc(100vh-5rem)] md:min-h-full">
         <div className="canvas bg-slate-900 bg-opacity-60 rounded-lg shadow-lg w-full h-full flex items-center justify-center p-4">
           {view === VIEW.Random && (
             <RandomCard
@@ -55,6 +64,13 @@ function App() {
           {view === VIEW.Celtic && <CelticCrossSpread />}
         </div>
       </div>
+
+      {/* Desktop menu on the right */}
+      {!isMobile && (
+        <div className="menu-container w-64 flex-shrink-0">
+          <HamburgerMenu onSelect={handleSelect} cards={cards} />
+        </div>
+      )}
     </div>
   );
 }
