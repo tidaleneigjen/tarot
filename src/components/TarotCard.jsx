@@ -4,6 +4,7 @@ export default function TarotCard({
   showText = true,
   showTitle = true,
   className = '',
+  height = '500px', // default height
 }) {
   if (!card) return null;
 
@@ -18,9 +19,8 @@ export default function TarotCard({
             src={card.image}
             alt={card.name}
             loading="lazy"
-            className={`max-h-[400px] md:max-h-[500px] ${
-              isReversed ? 'rotate-180' : ''
-            }`}
+            className={`${isReversed ? 'rotate-180' : ''}`}
+            style={{ height }}
           />
         </div>
 

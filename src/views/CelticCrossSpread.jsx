@@ -4,117 +4,85 @@ import TarotCard from '../components/TarotCard';
 
 export default function CelticCrossSpread({ includeReversed = true }) {
   const [spread, setSpread] = useState([]);
-  const [reversed, setReversed] = useState([]);
+  const [isReversedList, setIsReversedList] = useState([]);
 
   useEffect(() => {
+    // Pick 10 unique cards
     const selected = [...cards].sort(() => 0.5 - Math.random()).slice(0, 10);
-    const reversedFlags = selected.map(() =>
+
+    // Random reversed flags
+    const reversed = selected.map(() =>
       includeReversed ? Math.random() < 0.5 : false
     );
+
     setSpread(selected);
-    setReversed(reversedFlags);
+    setIsReversedList(reversed);
   }, [includeReversed]);
 
-  if (spread.length < 10) return null;
-
-  const [
-    card1,
-    card2,
-    card3,
-    card4,
-    card5,
-    card6,
-    card7,
-    card8,
-    card9,
-    card10,
-  ] = spread;
-  const [rev1, rev2, rev3, rev4, rev5, rev6, rev7, rev8, rev9, rev10] =
-    reversed;
-
-  const cardSizeClass = 'w-40 md:w-48'; // ~160-192px width
-
   return (
-    <div className="grid grid-cols-4 h-screen max-w-7xl mx-auto gap-4 px-4 py-8">
-      {/* Column 1 (Removed) */}
+    <div className="flex w-full h-full justify-center items-center gap-4">
+      {/* Cross section */}
+      <div className="flex flex-col justify-center gap-4">
+        {/* Card 6 */}
+        <div className="flex justify-center">
+          <TarotCard
+            card={spread[5]}
+            isReversed={isReversedList[5]}
+            showText={false}
+            showTitle={false}
+            height="200px"
+          />
+        </div>
 
-      {/* Column 1 (now actual col 1) - Card 3 (left of center stack) */}
-      <div className="flex items-center justify-center">
-        <TarotCard
-          card={card3}
-          isReversed={rev3}
-          showTitle={false}
-          showText={false}
-          className={cardSizeClass}
-        />
+        {/* Cards 3, 1, 4 */}
+        <div className="flex justify-center gap-4">
+          <TarotCard
+            card={spread[2]}
+            isReversed={isReversedList[2]}
+            showText={false}
+            showTitle={false}
+            height="200px"
+          />
+          <TarotCard
+            card={spread[0]}
+            isReversed={isReversedList[0]}
+            showText={false}
+            showTitle={false}
+            height="200px"
+          />
+          <TarotCard
+            card={spread[3]}
+            isReversed={isReversedList[3]}
+            showText={false}
+            showTitle={false}
+            height="200px"
+          />
+        </div>
+
+        {/* Card 5 */}
+        <div className="flex justify-center">
+          <TarotCard
+            card={spread[4]}
+            isReversed={isReversedList[4]}
+            showText={false}
+            showTitle={false}
+            height="200px"
+          />
+        </div>
       </div>
 
-      {/* Column 2 - Center stack: 6 (top), 1 (center), 5 (bottom) */}
-      <div className="flex flex-col justify-center items-center space-y-4">
-        <TarotCard
-          card={card6}
-          isReversed={rev6}
-          showTitle={false}
-          showText={false}
-          className={cardSizeClass}
-        />
-        <TarotCard
-          card={card1}
-          isReversed={rev1}
-          showTitle={false}
-          showText={false}
-          className={cardSizeClass}
-        />
-        <TarotCard
-          card={card5}
-          isReversed={rev5}
-          showTitle={false}
-          showText={false}
-          className={cardSizeClass}
-        />
-      </div>
-
-      {/* Column 3 - Card 4 (right of center stack) */}
-      <div className="flex items-center justify-center">
-        <TarotCard
-          card={card4}
-          isReversed={rev4}
-          showTitle={false}
-          showText={false}
-          className={cardSizeClass}
-        />
-      </div>
-
-      {/* Column 4 - Right-side vertical stack: cards 7 to 10 */}
-      <div className="flex flex-col justify-center items-center space-y-4">
-        <TarotCard
-          card={card7}
-          isReversed={rev7}
-          showTitle={false}
-          showText={false}
-          className={cardSizeClass}
-        />
-        <TarotCard
-          card={card8}
-          isReversed={rev8}
-          showTitle={false}
-          showText={false}
-          className={cardSizeClass}
-        />
-        <TarotCard
-          card={card9}
-          isReversed={rev9}
-          showTitle={false}
-          showText={false}
-          className={cardSizeClass}
-        />
-        <TarotCard
-          card={card10}
-          isReversed={rev10}
-          showTitle={false}
-          showText={false}
-          className={cardSizeClass}
-        />
+      {/* Staff section */}
+      <div className="flex flex-col justify-center gap-4">
+        {[6, 7, 8, 9].map((i) => (
+          <TarotCard
+            key={i}
+            card={spread[i]}
+            isReversed={isReversedList[i]}
+            showText={false}
+            showTitle={false}
+            height="200px"
+          />
+        ))}
       </div>
     </div>
   );
