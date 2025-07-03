@@ -20,11 +20,11 @@ export default function CelticCrossSpread({ includeReversed = true }) {
   }, [includeReversed]);
 
   return (
-    <div className="flex w-full h-full justify-center items-center gap-4">
-      {/* Cross section */}
-      <div className="flex flex-col justify-center gap-4">
-        {/* Card 6 */}
-        <div className="flex justify-center">
+    <div className="spread-layout">
+      <div className="flex gap-8 items-center">
+        {/* Cross section */}
+        <div className="flex flex-col items-center gap-4 self-center">
+          {/* Card 6 (top) */}
           <TarotCard
             card={spread[5]}
             isReversed={isReversedList[5]}
@@ -32,35 +32,50 @@ export default function CelticCrossSpread({ includeReversed = true }) {
             showTitle={false}
             height="200px"
           />
-        </div>
 
-        {/* Cards 3, 1, 4 */}
-        <div className="flex justify-center gap-4">
-          <TarotCard
-            card={spread[2]}
-            isReversed={isReversedList[2]}
-            showText={false}
-            showTitle={false}
-            height="200px"
-          />
-          <TarotCard
-            card={spread[0]}
-            isReversed={isReversedList[0]}
-            showText={false}
-            showTitle={false}
-            height="200px"
-          />
-          <TarotCard
-            card={spread[3]}
-            isReversed={isReversedList[3]}
-            showText={false}
-            showTitle={false}
-            height="200px"
-          />
-        </div>
+          {/* Middle row: Cards 3, 1+2 overlay, 4 */}
+          <div className="flex gap-4 items-center justify-center relative">
+            <TarotCard
+              card={spread[2]}
+              isReversed={isReversedList[2]}
+              showText={false}
+              showTitle={false}
+              height="200px"
+            />
 
-        {/* Card 5 */}
-        <div className="flex justify-center">
+            {/* Card 1 with Card 2 overlaid */}
+            <div className="mx-8">
+              <div className="relative">
+                <TarotCard
+                  card={spread[0]}
+                  isReversed={isReversedList[0]}
+                  showText={false}
+                  showTitle={false}
+                  height="200px"
+                />
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
+                  <TarotCard
+                    card={spread[1]}
+                    isReversed={isReversedList[1]}
+                    showText={false}
+                    showTitle={false}
+                    height="200px"
+                    className="transform rotate-90 scale-90"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <TarotCard
+              card={spread[3]}
+              isReversed={isReversedList[3]}
+              showText={false}
+              showTitle={false}
+              height="200px"
+            />
+          </div>
+
+          {/* Card 5 (bottom) */}
           <TarotCard
             card={spread[4]}
             isReversed={isReversedList[4]}
@@ -69,20 +84,20 @@ export default function CelticCrossSpread({ includeReversed = true }) {
             height="200px"
           />
         </div>
-      </div>
 
-      {/* Staff section */}
-      <div className="flex flex-col justify-center gap-4">
-        {[6, 7, 8, 9].map((i) => (
-          <TarotCard
-            key={i}
-            card={spread[i]}
-            isReversed={isReversedList[i]}
-            showText={false}
-            showTitle={false}
-            height="200px"
-          />
-        ))}
+        {/* Staff section */}
+        <div className="flex flex-col gap-4 self-center">
+          {[6, 7, 8, 9].map((i) => (
+            <TarotCard
+              key={i}
+              card={spread[i]}
+              isReversed={isReversedList[i]}
+              showText={false}
+              showTitle={false}
+              height="200px"
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
