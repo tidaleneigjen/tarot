@@ -11,6 +11,7 @@
     "format": "prettier --write .",
     "test": "vitest",
     "test:once": "vitest run",
+    "test:summary": "vitest run --reporter=basic",
     "test:watch": "vitest --watch"
   },
   "dependencies": {

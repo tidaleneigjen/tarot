@@ -1,20 +1,19 @@
 import { render, screen } from '@testing-library/react';
-import RandomCard from '../views/RandomCard'; // adjust path if needed
-import cards from '../data/cards'; // your card data source
+import RandomCard from '../views/RandomCard';
+import cards from '../data/cards.json';
 
 describe('RandomCard component', () => {
-  test('renders a card name', async () => {
-    // Provide the cards array and other required props
+  test('renders a tarot card image', async () => {
     render(<RandomCard cards={cards} includeReversed={false} refreshKey={0} />);
 
-    // card names for matching
-    const cardNames = cards.map((c) => c.name);
+    // Wait for an image with any known alt text to appear
+    const altTexts = cards.map((c) => c.name);
 
-    // Wait for the card name to appear in the document
-    const cardElement = await screen.findByText((text) =>
-      cardNames.includes(text)
+    const image = await screen.findByAltText((alt) =>
+      altTexts.includes(alt)
     );
 
-    expect(cardElement).toBeInTheDocument();
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute('src');
   });
 });
