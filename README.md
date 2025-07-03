@@ -1,12 +1,41 @@
-# React + Vite
+# 🃏 Tarot App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive tarot reading experience built with **React**, **Tailwind CSS**, and **Vite**. Draw cards, explore classic spreads, and prepare for future interactive readings — all powered by a structured, local JSON tarot deck.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 🔮 **Random Card** – Instantly draw a single tarot card
+- 📖 **Card Detail View** – View the image and meanings of individual cards
+- 🧩 **Spreads**
+  - Three Card Spread
+  - Celtic Cross Spread (with overlaid and rotated card)
+- 🃏 **Reversed Card Support** – Enable or disable reversed meanings
+- 📱 **Responsive Design** – Optimized for mobile and desktop
+- ⚡️ **Powered by Vite** – Lightning-fast dev experience
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧠 Tech Stack
+
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/) for unit testing
+
+---
+
+## 🚀 Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/tarot-app.git
+cd tarot-app
+
+# Install dependencies
+npm install
+
+# Start the local dev server
+npm run dev
+```
