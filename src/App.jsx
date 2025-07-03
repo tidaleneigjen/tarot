@@ -37,18 +37,17 @@ function App() {
   };
 
   return (
-    <div className="app-wrapper min-h-screen bg-cosmic font-sans text-gray-100 p-4 flex flex-col md:flex-row gap-4">
-      {/* Mobile layout */}
+    <div className="app-wrapper bg-cosmic font-sans text-gray-100 p-4 min-h-screen">
       {isMobile ? (
-        <div className="flex flex-col h-screen gap-2">
-          {/* Menu on top */}
-          <div className="flex-none w-full">
+        <div className="flex flex-col min-h-screen gap-2">
+          {/* Mobile Menu */}
+          <div className="flex-none">
             <HamburgerMenu onSelect={handleSelect} cards={cards} />
           </div>
 
-          {/* Canvas fills remaining vertical space */}
-          <div className="flex-grow w-full flex items-center justify-center">
-            <div className="canvas w-full h-full">
+          {/* Mobile Canvas */}
+          <div className="flex-grow">
+            <div className="canvas">
               {view === VIEW.Random && (
                 <RandomCard
                   includeReversed={includeReversed}
@@ -72,8 +71,8 @@ function App() {
             </div>
           </div>
 
-          {/* Toggle at bottom */}
-          <div className="flex-none w-full">
+          {/* Mobile Toggle */}
+          <div className="flex-none">
             <ReversedToggle
               includeReversed={includeReversed}
               setIncludeReversed={setIncludeReversed}
@@ -81,10 +80,10 @@ function App() {
           </div>
         </div>
       ) : (
-        <>
-          {/* Desktop canvas */}
-          <div className="canvas-container flex-1 min-h-full">
-            <div className="canvas w-full">
+        <div className="flex flex-row gap-4 min-h-screen">
+          {/* Desktop Canvas */}
+          <div className="canvas-container flex-1">
+            <div className="canvas">
               {view === VIEW.Random && (
                 <RandomCard
                   includeReversed={includeReversed}
@@ -108,7 +107,7 @@ function App() {
             </div>
           </div>
 
-          {/* Desktop menu + toggle */}
+          {/* Desktop Menu + Toggle */}
           <div className="menu-container w-64 flex flex-col justify-between flex-shrink-0">
             <div>
               <HamburgerMenu onSelect={handleSelect} cards={cards} />
@@ -120,7 +119,7 @@ function App() {
               />
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
