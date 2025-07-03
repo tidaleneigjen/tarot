@@ -7,17 +7,15 @@ export default function ThreeCardSpread({ includeReversed = true }) {
   const [isReversedList, setIsReversedList] = useState([]);
 
   useEffect(() => {
-    // Randomly select 3 cards
+    // Select 3 random cards once on mount
     const selected = [...cards].sort(() => 0.5 - Math.random()).slice(0, 3);
 
-    // Decide if each card is reversed or not
-    const reversed = selected.map(() =>
-      includeReversed ? Math.random() < 0.5 : false
-    );
+    // Decide reversed once per card (regardless of includeReversed)
+    const reversed = selected.map(() => Math.random() < 0.5);
 
     setSpread(selected);
     setIsReversedList(reversed);
-  }, [includeReversed]);
+  }, []); // empty dependency array: run once
 
   return (
     <div className="flex flex-col md:flex-row justify-center gap-6">
@@ -25,7 +23,7 @@ export default function ThreeCardSpread({ includeReversed = true }) {
         <TarotCard
           key={card.name}
           card={card}
-          isReversed={isReversedList[i]}
+          isReversed={includeReversed ? isReversedList[i] : false}
           showText={false}
           showTitle={false}
           className="max-h-[80vh] max-w-xs"

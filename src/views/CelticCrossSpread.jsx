@@ -7,17 +7,15 @@ export default function CelticCrossSpread({ includeReversed = true }) {
   const [isReversedList, setIsReversedList] = useState([]);
 
   useEffect(() => {
-    // Pick 10 unique cards
+    // Pick 10 unique cards once on mount
     const selected = [...cards].sort(() => 0.5 - Math.random()).slice(0, 10);
 
-    // Random reversed flags
-    const reversed = selected.map(() =>
-      includeReversed ? Math.random() < 0.5 : false
-    );
+    // Decide reversed once per card (regardless of includeReversed)
+    const reversed = selected.map(() => Math.random() < 0.5);
 
     setSpread(selected);
     setIsReversedList(reversed);
-  }, [includeReversed]);
+  }, []); // run once
 
   return (
     <div className="spread-layout">
@@ -27,7 +25,7 @@ export default function CelticCrossSpread({ includeReversed = true }) {
           {/* Card 6 (top) */}
           <TarotCard
             card={spread[5]}
-            isReversed={isReversedList[5]}
+            isReversed={includeReversed ? isReversedList[5] : false}
             showText={false}
             showTitle={false}
             height="200px"
@@ -37,7 +35,7 @@ export default function CelticCrossSpread({ includeReversed = true }) {
           <div className="flex gap-4 items-center justify-center relative">
             <TarotCard
               card={spread[2]}
-              isReversed={isReversedList[2]}
+              isReversed={includeReversed ? isReversedList[2] : false}
               showText={false}
               showTitle={false}
               height="200px"
@@ -48,7 +46,7 @@ export default function CelticCrossSpread({ includeReversed = true }) {
               <div className="relative">
                 <TarotCard
                   card={spread[0]}
-                  isReversed={isReversedList[0]}
+                  isReversed={includeReversed ? isReversedList[0] : false}
                   showText={false}
                   showTitle={false}
                   height="200px"
@@ -56,7 +54,7 @@ export default function CelticCrossSpread({ includeReversed = true }) {
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
                   <TarotCard
                     card={spread[1]}
-                    isReversed={isReversedList[1]}
+                    isReversed={includeReversed ? isReversedList[1] : false}
                     showText={false}
                     showTitle={false}
                     height="200px"
@@ -68,7 +66,7 @@ export default function CelticCrossSpread({ includeReversed = true }) {
 
             <TarotCard
               card={spread[3]}
-              isReversed={isReversedList[3]}
+              isReversed={includeReversed ? isReversedList[3] : false}
               showText={false}
               showTitle={false}
               height="200px"
@@ -78,7 +76,7 @@ export default function CelticCrossSpread({ includeReversed = true }) {
           {/* Card 5 (bottom) */}
           <TarotCard
             card={spread[4]}
-            isReversed={isReversedList[4]}
+            isReversed={includeReversed ? isReversedList[4] : false}
             showText={false}
             showTitle={false}
             height="200px"
@@ -91,7 +89,7 @@ export default function CelticCrossSpread({ includeReversed = true }) {
             <TarotCard
               key={i}
               card={spread[i]}
-              isReversed={isReversedList[i]}
+              isReversed={includeReversed ? isReversedList[i] : false}
               showText={false}
               showTitle={false}
               height="200px"

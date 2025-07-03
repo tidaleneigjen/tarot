@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import TarotCard from '../components/TarotCard';
 
 export default function RandomCard({ includeReversed, refreshKey, cards }) {
@@ -10,28 +10,21 @@ export default function RandomCard({ includeReversed, refreshKey, cards }) {
 
     const cardIndex = Math.floor(Math.random() * cards.length);
     const card = cards[cardIndex];
-    const reversed = includeReversed ? Math.random() < 0.5 : false;
+    const reversed = Math.random() < 0.5; // decide reversed once per refresh
 
     setRandomCard(card);
     setIsReversed(reversed);
   }, [refreshKey, cards]);
 
-  useEffect(() => {
-    if (!randomCard) return;
-
-    if (!includeReversed && isReversed) {
-      setIsReversed(false);
-    } else if (includeReversed && !isReversed) {
-      setIsReversed(Math.random() < 0.5);
-    }
-  }, [includeReversed]);
+  // Display reversed only if includeReversed is true
+  const displayReversed = includeReversed ? isReversed : false;
 
   return (
     <div className="flex justify-center items-center h-full">
       {randomCard ? (
         <TarotCard
           card={randomCard}
-          isReversed={isReversed}
+          isReversed={displayReversed}
           showTitle={false}
           showText={false}
           className="max-h-[90vh]"
