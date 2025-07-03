@@ -9,9 +9,7 @@ describe('RandomCard component', () => {
     // Wait for an image with any known alt text to appear
     const altTexts = cards.map((c) => c.name);
 
-    const image = await screen.findByAltText((alt) =>
-      altTexts.includes(alt)
-    );
+    const image = await screen.findByAltText((alt) => altTexts.includes(alt));
 
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute('src');

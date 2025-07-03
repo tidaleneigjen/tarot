@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import cards from './data/cards.json';
 import HamburgerMenu from './components/HamburgerMenu';
+import ReversedToggle from './components/ReversedToggle';
 import RandomCard from './views/RandomCard';
 import CardDetail from './views/CardDetail';
 import FullDeck from './views/FullDeck';
@@ -37,39 +38,89 @@ function App() {
 
   return (
     <div className="app-wrapper min-h-screen bg-cosmic font-sans text-gray-100 p-4 flex flex-col md:flex-row gap-4">
-      {/* Mobile menu above canvas */}
-      {isMobile && (
-        <div className="menu-container w-full mb-4">
-          <HamburgerMenu onSelect={handleSelect} cards={cards} />
-        </div>
-      )}
+      {/* Mobile layout */}
+      {isMobile ? (
+        <div className="flex flex-col h-screen gap-2">
+          {/* Menu on top */}
+          <div className="flex-none w-full">
+            <HamburgerMenu onSelect={handleSelect} cards={cards} />
+          </div>
 
-      {/* Canvas fills remaining space */}
-      <div className="canvas-container flex-1 min-h-[calc(100vh-5rem)] md:min-h-full">
-        <div className="canvas bg-slate-900 bg-opacity-60 rounded-lg shadow-lg w-full h-full flex items-center justify-center p-4">
-          {view === VIEW.Random && (
-            <RandomCard
+          {/* Canvas fills remaining vertical space */}
+          <div className="flex-grow w-full flex items-center justify-center">
+            <div className="canvas w-full h-full">
+              {view === VIEW.Random && (
+                <RandomCard
+                  includeReversed={includeReversed}
+                  refreshKey={randomCardRefresh}
+                  cards={cards}
+                />
+              )}
+              {view === VIEW.Detail && selectedCard && (
+                <CardDetail card={selectedCard} />
+              )}
+              {view === VIEW.Deck && <FullDeck />}
+              {view === VIEW.Three && (
+                <ThreeCardSpread
+                  cards={cards}
+                  includeReversed={includeReversed}
+                />
+              )}
+              {view === VIEW.Celtic && (
+                <CelticCrossSpread includeReversed={includeReversed} />
+              )}
+            </div>
+          </div>
+
+          {/* Toggle at bottom */}
+          <div className="flex-none w-full">
+            <ReversedToggle
               includeReversed={includeReversed}
-              refreshKey={randomCardRefresh}
-              cards={cards}
+              setIncludeReversed={setIncludeReversed}
             />
-          )}
-          {view === VIEW.Detail && selectedCard && (
-            <CardDetail card={selectedCard} />
-          )}
-          {view === VIEW.Deck && <FullDeck />}
-          {view === VIEW.Three && (
-            <ThreeCardSpread cards={cards} includeReversed={includeReversed} />
-          )}
-          {view === VIEW.Celtic && <CelticCrossSpread />}
+          </div>
         </div>
-      </div>
+      ) : (
+        <>
+          {/* Desktop canvas */}
+          <div className="canvas-container flex-1 min-h-full">
+            <div className="canvas w-full">
+              {view === VIEW.Random && (
+                <RandomCard
+                  includeReversed={includeReversed}
+                  refreshKey={randomCardRefresh}
+                  cards={cards}
+                />
+              )}
+              {view === VIEW.Detail && selectedCard && (
+                <CardDetail card={selectedCard} />
+              )}
+              {view === VIEW.Deck && <FullDeck />}
+              {view === VIEW.Three && (
+                <ThreeCardSpread
+                  cards={cards}
+                  includeReversed={includeReversed}
+                />
+              )}
+              {view === VIEW.Celtic && (
+                <CelticCrossSpread includeReversed={includeReversed} />
+              )}
+            </div>
+          </div>
 
-      {/* Desktop menu on the right */}
-      {!isMobile && (
-        <div className="menu-container w-64 flex-shrink-0">
-          <HamburgerMenu onSelect={handleSelect} cards={cards} />
-        </div>
+          {/* Desktop menu + toggle */}
+          <div className="menu-container w-64 flex flex-col justify-between flex-shrink-0">
+            <div>
+              <HamburgerMenu onSelect={handleSelect} cards={cards} />
+            </div>
+            <div>
+              <ReversedToggle
+                includeReversed={includeReversed}
+                setIncludeReversed={setIncludeReversed}
+              />
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
